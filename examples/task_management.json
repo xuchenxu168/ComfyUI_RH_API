@@ -1,0 +1,67 @@
+{
+  "last_node_id": 6,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "RH_Config",
+      "pos": [200, 200],
+      "size": {"0": 300, "1": 100},
+      "outputs": [{"name": "config", "type": "RH_CONFIG", "links": [1, 3]}],
+      "widgets_values": ["YOUR_WORKFLOW_ID", "YOUR_API_KEY", "https://www.runninghub.cn"]
+    },
+    {
+      "id": 2,
+      "type": "RH_Execute",
+      "pos": [550, 200],
+      "size": {"0": 300, "1": 180},
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 1}],
+      "outputs": [{"name": "task_id", "type": "STRING", "links": [2]}],
+      "widgets_values": [600, false, true, "Exec_to_Manage"]
+    },
+    {
+      "id": 3,
+      "type": "PrimitiveNode",
+      "pos": [550, 450],
+      "size": {"0": 315, "1": 82},
+      "inputs": [{"name": "STRING", "type": "STRING", "link": 2}],
+      "outputs": [{"name": "STRING", "type": "STRING", "links": [4]}],
+      "properties": {"Node name for S&R": "PrimitiveNode"},
+      "widgets_values": ["Paste Task ID here or connect from RH_Execute"]
+    },
+    {
+      "id": 4,
+      "type": "RH_TaskManager",
+      "pos": [900, 320],
+      "size": {"0": 320, "1": 120},
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 3}, {"name": "task_id", "type": "STRING", "link": 4}],
+      "outputs": [{"name": "result_text", "type": "STRING", "links": [5]}],
+      "widgets_values": ["Get Status"]
+    },
+    {
+        "id": 5,
+        "type": "PrimitiveNode",
+        "pos": [1250, 320],
+        "size": {"0": 315, "1": 82},
+        "inputs": [{"name": "STRING", "type": "STRING", "link": 5}],
+        "properties": {"Node name for S&R": "PrimitiveNode"},
+        "widgets_values": ["Task status will be shown here"]
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "RH_CONFIG"],
+    [2, 2, 0, 3, 0, "STRING"],
+    [3, 1, 0, 4, 0, "RH_CONFIG"],
+    [4, 3, 0, 4, 1, "STRING"],
+    [5, 4, 0, 5, 0, "STRING"]
+  ],
+  "groups": [
+    {
+      "title": "Task Management (Get Status / Cancel)",
+      "bounding": [150, 100, 1500, 500],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "version": 0.4
+}

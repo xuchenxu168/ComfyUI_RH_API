@@ -1,0 +1,8 @@
+requests>=2.31.0
+Pillow>=10.0.0
+numpy>=1.24.0
+torch>=2.0.0
+websocket-client>=1.8.0
+opencv-python>=4.8.0
+torchaudio>=2.0.0
+

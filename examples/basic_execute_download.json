@@ -1,0 +1,248 @@
+{
+  "last_node_id": 5,
+  "last_link_id": 4,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "RH_Config",
+      "pos": [
+        200,
+        200
+      ],
+      "size": {
+        "0": 300,
+        "1": 100
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "config",
+          "type": "RH_CONFIG",
+          "links": [
+            1,
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "YOUR_WORKFLOW_ID",
+        "YOUR_API_KEY",
+        "https://www.runninghub.cn"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "RH_Execute",
+      "pos": [
+        600,
+        200
+      ],
+      "size": {
+        "0": 300,
+        "1": 180
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "config",
+          "type": "RH_CONFIG",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "video_frames",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": null
+        },
+        {
+          "name": "task_id",
+          "type": "STRING",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        600,
+        false,
+        true,
+        "RH_Exec"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "RH_Download",
+      "pos": [
+        1000,
+        200
+      ],
+      "size": {
+        "0": 300,
+        "1": 180
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "config",
+          "type": "RH_CONFIG",
+          "link": 3
+        },
+        {
+          "name": "task_id",
+          "type": "STRING",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            4
+          ]
+        },
+        {
+          "name": "video_frames",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        600,
+        true,
+        "RH_DL"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PreviewImage",
+      "pos": [
+        1400,
+        200
+      ],
+      "size": {
+        "0": 210,
+        "1": 260
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 4
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "RH_CONFIG"
+    ],
+    [
+      2,
+      3,
+      6,
+      4,
+      1,
+      "STRING"
+    ],
+    [
+      3,
+      2,
+      0,
+      4,
+      0,
+      "RH_CONFIG"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Basic Execute -> Download -> Preview",
+      "bounding": [
+        150,
+        100,
+        1500,
+        400
+      ],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

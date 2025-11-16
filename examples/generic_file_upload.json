@@ -1,0 +1,76 @@
+{
+  "last_node_id": 7,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "RH_Config",
+      "pos": [200, 200],
+      "size": {"0": 300, "1": 100},
+      "outputs": [{"name": "config", "type": "RH_CONFIG", "links": [1, 4, 6]}],
+      "widgets_values": ["YOUR_WORKFLOW_ID", "YOUR_API_KEY", "https://www.runninghub.cn"]
+    },
+    {
+      "id": 2,
+      "type": "PrimitiveNode",
+      "pos": [200, 350],
+      "size": {"0": 315, "1": 82},
+      "outputs": [{"name": "STRING", "type": "STRING", "links": [2]}],
+      "properties": {"Node name for S&R": "PrimitiveNode"},
+      "widgets_values": ["C:\\path\\to\\your\\file.txt"]
+    },
+    {
+      "id": 3,
+      "type": "RH_UploadFile",
+      "pos": [550, 350],
+      "size": {"0": 320, "1": 120},
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 1}, {"name": "file_path", "type": "STRING", "link": 2}],
+      "outputs": [{"name": "params", "type": "RH_PARAMS", "links": [3]}],
+      "widgets_values": ["201", "text", ""]
+    },
+    {
+      "id": 4,
+      "type": "RH_Execute",
+      "pos": [900, 200],
+      "size": {"0": 300, "1": 180},
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 4}, {"name": "params", "type": "RH_PARAMS", "link": 3}],
+      "outputs": [{"name": "task_id", "type": "STRING", "links": [5]}],
+      "widgets_values": [600, false, true, "FileExec"]
+    },
+    {
+      "id": 5,
+      "type": "RH_Download",
+      "pos": [1250, 200],
+      "size": {"0": 300, "1": 180},
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 6}, {"name": "task_id", "type": "STRING", "link": 5}],
+      "outputs": [{"name": "images", "type": "IMAGE", "links": [7]}],
+      "widgets_values": [600, true, "FileDL"]
+    },
+    {
+      "id": 6,
+      "type": "PreviewImage",
+      "pos": [1600, 200],
+      "size": {"0": 210, "1": 260},
+      "inputs": [{"name": "images", "type": "IMAGE", "link": 7}],
+      "properties": {"Node name for S&R": "PreviewImage"}
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "RH_CONFIG"],
+    [2, 2, 0, 3, 1, "STRING"],
+    [3, 3, 0, 4, 1, "RH_PARAMS"],
+    [4, 1, 0, 4, 0, "RH_CONFIG"],
+    [5, 4, 0, 5, 1, "STRING"],
+    [6, 1, 0, 5, 0, "RH_CONFIG"],
+    [7, 5, 0, 6, 0, "IMAGE"]
+  ],
+  "groups": [
+    {
+      "title": "Generic File Upload",
+      "bounding": [150, 100, 1750, 450],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "version": 0.4
+}

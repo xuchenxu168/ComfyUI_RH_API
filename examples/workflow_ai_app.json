@@ -1,0 +1,175 @@
+{
+  "last_node_id": 5,
+  "last_link_id": 4,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "RH_Config",
+      "pos": [100, 100],
+      "size": [400, 200],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "config",
+          "type": "RH_CONFIG",
+          "links": [1],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RH_Config"
+      },
+      "widgets_values": [
+        "your_api_key_here",
+        "your_ai_app_id_here",
+        "https://www.runninghub.cn",
+        true
+      ]
+    },
+    {
+      "id": 2,
+      "type": "RH_Param",
+      "pos": [100, 350],
+      "size": [400, 180],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "params",
+          "type": "RH_PARAMS",
+          "links": [2],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RH_Param"
+      },
+      "widgets_values": [
+        "input_text",
+        "text",
+        "Generate a professional logo for a tech startup",
+        null
+      ]
+    },
+    {
+      "id": 3,
+      "type": "RH_Execute",
+      "pos": [550, 100],
+      "size": [400, 280],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "config",
+          "type": "RH_CONFIG",
+          "link": 1
+        },
+        {
+          "name": "params",
+          "type": "RH_PARAMS",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [3],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "video_frames",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [4],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RH_Execute"
+      },
+      "widgets_values": [
+        600,
+        true,
+        true,
+        "AIApp"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "PreviewImage",
+      "pos": [1000, 100],
+      "size": [400, 400],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 5,
+      "type": "RH_TextDisplay",
+      "pos": [1000, 550],
+      "size": [400, 200],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "RH_TextDisplay"
+      },
+      "widgets_values": [
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "RH_CONFIG"],
+    [2, 2, 0, 3, 1, "RH_PARAMS"],
+    [3, 3, 0, 4, 0, "IMAGE"],
+    [4, 3, 2, 5, 0, "STRING"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
+

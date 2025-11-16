@@ -1,0 +1,78 @@
+{
+  "last_node_id": 8,
+  "last_link_id": 8,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "RH_Config",
+      "pos": [200, 200],
+      "size": {"0": 300, "1": 100},
+      "outputs": [{"name": "config", "type": "RH_CONFIG", "links": [1, 7]}],
+      "widgets_values": ["", "", "https://www.runninghub.cn"]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [200, 360],
+      "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [2]}],
+      "widgets_values": ["example.png"]
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [200, 520],
+      "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [3]}],
+      "widgets_values": ["controlnet_example.png"]
+    },
+    {
+      "id": 4,
+      "type": "RH_MultiInputImage",
+      "pos": [500, 360],
+      "size": {"0": 320, "1": 280},
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 1}, {"name": "image_1", "type": "IMAGE", "link": 2}, {"name": "image_2", "type": "IMAGE", "link": 3}],
+      "outputs": [{"name": "params_for_single_run", "type": "RH_PARAMS", "links": [4]}],
+      "widgets_values": ["YOUR_MAIN_IMAGE_NODE_ID", "image", "YOUR_CONTROLNET_NODE_ID", "control_image"]
+    },
+    {
+      "id": 5,
+      "type": "RH_Execute",
+      "pos": [860, 360],
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 7}, {"name": "params", "type": "RH_PARAMS", "link": 4}],
+      "outputs": [{"name": "task_id", "type": "STRING", "links": [5]}],
+      "widgets_values": [600, false, true, "MultiInputExec"]
+    },
+    {
+      "id": 6,
+      "type": "RH_Download",
+      "pos": [1180, 360],
+      "inputs": [{"name": "config", "type": "RH_CONFIG", "link": 7}, {"name": "task_id", "type": "STRING", "link": 5}],
+      "outputs": [{"name": "images", "type": "IMAGE", "links": [6]}],
+      "widgets_values": [600, true, "MultiInputDL"]
+    },
+    {
+      "id": 7,
+      "type": "PreviewImage",
+      "pos": [1500, 360],
+      "inputs": [{"name": "images", "type": "IMAGE", "link": 6}]
+    }
+  ],
+  "links": [
+    [1, 1, 0, 4, 0, "RH_CONFIG"],
+    [2, 2, 0, 4, 1, "IMAGE"],
+    [3, 3, 0, 4, 2, "IMAGE"],
+    [4, 4, 0, 5, 1, "RH_PARAMS"],
+    [5, 5, 0, 6, 1, "STRING"],
+    [6, 6, 0, 7, 0, "IMAGE"],
+    [7, 1, 0, 5, 0, "RH_CONFIG"],
+    [8, 1, 0, 6, 0, "RH_CONFIG"]
+  ],
+  "groups": [
+    {
+      "title": "Multi-Input Image Example",
+      "bounding": [150, 150, 1500, 500],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "version": 0.4
+}

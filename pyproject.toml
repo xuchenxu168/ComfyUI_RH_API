@@ -1,0 +1,17 @@
+[project]
+name = "ComfyUI_RH_API"
+description = "This plugin makes it easy to call RunningHub cloud workflows and AI apps from ComfyUI with a clean, intuitive interface"
+version = "2.0.0"
+license = {file = "LICENSE"}
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/xuchenxu168/ComfyUI_RH_API"
+"Bug Tracker" = "https://github.com/xuchenxu168/ComfyUI_RH_API"
+#  Used by Comfy Registry https://registry.comfy.org
+
+[tool.comfy]
+PublisherId = "xuchenxu168"
+DisplayName = "ComfyUI_RH_API"
+Icon = ""
+includes = []
