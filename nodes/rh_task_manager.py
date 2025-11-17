@@ -42,9 +42,18 @@ class RH_TaskManager:
         try:
             if action == self.ACTION_GET_STATUS:
                 status_info = get_task_status(config, task_id)
-                result_message = f"Status for {task_id}: {status_info.get('taskStatus', 'Unknown')}"
-                if 'error' in status_info:
-                    result_message += f" - Error: {status_info['error']}"
+
+                # The task is considered complete if status_info is a list (containing outputs).
+                if isinstance(status_info, list):
+                    status = "COMPLETED"
+                elif isinstance(status_info, dict):
+                    status = status_info.get('taskStatus', 'Unknown')
+                    if 'error' in status_info:
+                        status += f" - Error: {status_info['error']}"
+                else:
+                    status = "Unknown"
+
+                result_message = f"Status for {task_id}: {status}"
                 print(result_message)
 
             elif action == self.ACTION_CANCEL:
