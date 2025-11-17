@@ -62,7 +62,8 @@ class RH_BatchUploadImage:
 
                 if rh_file_path:
                     param = {"nodeId": node_id, "fieldName": field_name, "fieldValue": rh_file_path}
-                    batch_bundle.append([param]) # Each image is a separate run
+                    # Each param set is a list of dicts for one run. Here, it's just one param.
+                    batch_bundle.append([param])
                 else:
                     print(f"[Error] Failed to upload image {i}. Skipping this run.")
 

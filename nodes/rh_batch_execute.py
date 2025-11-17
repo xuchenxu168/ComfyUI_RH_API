@@ -41,20 +41,21 @@ class RH_BatchExecute:
 
         print(f"🚀 Starting Batch Execution for {len(param_bundle)} tasks...")
         task_ids = []
-        url = f"{base_url}/workflow/openapi/run"
+        # Use the correct endpoint for creating tasks, same as in rh_execute
+        url = f"{base_url}/task/openapi/create"
 
-        for i, param_set in enumerate(param_bundle):
+        for i, params_list in enumerate(param_bundle):
             print(f"  - Submitting task {i+1}/{len(param_bundle)}...")
             try:
-                params_list = [json.loads(p) for p in param_set]
+                # Use the correct payload structure with 'nodeInfoList'
                 payload = {
                     "apiKey": api_key,
                     "workflowId": workflow_id,
-                    "params": params_list,
-                    "source": "ComfyUI"
+                    "nodeInfoList": params_list,
                 }
-                
-                response = requests.post(url, json=payload, timeout=20)
+
+                headers = {'Content-Type': 'application/json'}
+                response = requests.post(url, data=json.dumps(payload), headers=headers, timeout=20)
                 response.raise_for_status()
                 result = response.json()
 

@@ -163,7 +163,8 @@ class RH_Execute:
         for attempt in range(max_retries):
             try:
                 print(f"Creating task (attempt {attempt + 1}/{max_retries})...")
-                response = requests.post(url, json=payload, timeout=30)
+                headers = {'Content-Type': 'application/json'}
+                response = requests.post(url, data=json.dumps(payload), headers=headers, timeout=30)
                 response.raise_for_status()
 
                 result = response.json()

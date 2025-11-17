@@ -85,20 +85,21 @@ class RH_Config:
         # Load configuration from file if needed
         file_config = self.load_config_file()
 
-        # Use file config as fallback for empty values
+        # Node inputs have the highest priority. Use file config as a fallback.
         final_api_key = api_key.strip() if api_key and api_key.strip() else file_config.get("api_key", "")
         final_base_url = base_url.strip() if base_url and base_url.strip() else file_config.get("base_url", "https://www.runninghub.cn")
+        final_workflow_id = workflow_or_app_id.strip() if workflow_or_app_id and workflow_or_app_id.strip() else file_config.get("workflow_or_app_id", "")
 
         # Validate required fields
         if not final_api_key:
-            raise ValueError("API key is required. Either fill it in the node or add it to config.json file. Get your API key from https://www.runninghub.cn")
+            raise ValueError("API key is required. Provide it in the node or in config.json.")
 
-        if not workflow_or_app_id or not workflow_or_app_id.strip():
-            raise ValueError("Workflow ID or AI App ID is required")
+        if not final_workflow_id:
+            raise ValueError("Workflow ID or AI App ID is required. Provide it in the node or in config.json.")
 
         config = {
             "api_key": final_api_key,
-            "workflow_or_app_id": workflow_or_app_id.strip(),
+            "workflow_or_app_id": final_workflow_id,
             "base_url": final_base_url,
             "is_ai_app": is_ai_app,
         }
@@ -106,9 +107,11 @@ class RH_Config:
         # Show where values came from
         api_source = "node input" if (api_key and api_key.strip()) else "config.json"
         base_url_source = "node input" if (base_url and base_url.strip()) else "config.json"
+        workflow_id_source = "node input" if (workflow_or_app_id and workflow_or_app_id.strip()) else "config.json"
 
-        print(f"✓ RH Config created: {'AI App' if is_ai_app else 'Workflow'} ID={workflow_or_app_id}")
+        print(f"✓ RH Config created: {'AI App' if is_ai_app else 'Workflow'} ID={final_workflow_id}")
         print(f"  API Key: loaded from {api_source}")
+        print(f"  Workflow ID: loaded from {workflow_id_source}")
         print(f"  Base URL: {final_base_url} (from {base_url_source})")
 
         return (config,)
